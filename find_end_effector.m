@@ -111,3 +111,5 @@ ratio = counter/length(end_points)
 max_x_angle*180/pi
 min_x_angle*180/pi
 
+print -depsc leg_sim_position.eps
+
