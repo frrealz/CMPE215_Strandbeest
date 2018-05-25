@@ -1,5 +1,19 @@
 function[centerMass] = find_center_of_mass(zero, one, two, three, four, five, six, seven, eight)
 
+rL = vecnorm(one-zero);
+rM = vecnorm(two-zero);
+rA = vecnorm(four-one);
+rJ = vecnorm(three-two);
+rK = vecnorm(five-two);
+rB = vecnorm(four-three);
+rE = vecnorm(six-three);
+rC = vecnorm(five-four);
+rD = vecnorm(six-four);
+rG = vecnorm(seven-five);
+rI = vecnorm(eight-five);
+rF = vecnorm(seven-six);
+rH = veccnorm(eight-seven);
+
 aMass = component_mass(one, four);
 bMass = component_mass(three, four);
 cMass = component_mass(four, five);
@@ -14,9 +28,11 @@ kMass = component_mass(two, five);
 lMass = component_mass(zero, one);
 mMass = component_mass(zero, two);
 
+rsum = rA+rB+rC+rD+rE+rF+rG+rH+rI+rJ+rK+rL+rM;
+
 centerMass = zeros(2,1);
-centerMass(1) = (aMass(1) + bMass(1) + cMass(1) + dMass(1) + eMass(1) + fMass(1) + gMass(1) + hMass(1) + iMass(1) + jMass(1) + kMass(1) + lMass(1) + mMass(1))/13;
-centerMass(2) = (aMass(2) + bMass(2) + cMass(2) + dMass(2) + eMass(2) + fMass(2) + gMass(2) + hMass(2) + iMass(2) + jMass(2) + kMass(2) + lMass(2) + mMass(2))/13;
+centerMass(1) = (rA*aMass(1) + rB*bMass(1) + rC*cMass(1) + rD*dMass(1) + rE*eMass(1) + rF*fMass(1) + rG*gMass(1) + rH*hMass(1) + rI*iMass(1) + rJ*jMass(1) + rK*kMass(1) + rL*lMass(1) + rM*mMass(1))/rsum;
+centerMass(2) = (rA*aMass(2) + rB*bMass(2) + rC*cMass(2) + rD*dMass(2) + rE*eMass(2) + rF*fMass(2) + rG*gMass(2) + rH*hMass(2) + rI*iMass(2) + rJ*jMass(2) + rK*kMass(2) + rL*lMass(2) + rM*mMass(2))/rsum;
 
 
 
