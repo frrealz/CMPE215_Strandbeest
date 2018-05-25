@@ -135,8 +135,12 @@ for i = 1:length(FULLCIRCLE)
     
     subplot(1,2,2)
     c = linspace(1,5,length(velocity(1:i-1,1)));
-    scatter(velocity(1:i-1,1), velocity(1:i-1,2), [], c);
+    scatter(velocity(1:i-1,1), velocity(1:i-1,2));
+%     scatter(velocity(1:i-1,1), velocity(1:i-1,2), [], c);
     title('End Effector Velocity');
     ylabel('Y Velocity');
     xlabel('X Velocity');
 end
+
+
+% print -depsc center_of_mass.eps
