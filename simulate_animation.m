@@ -19,21 +19,12 @@ m = 15.0;
 
 lengths = [a b c d e f g h i j k l m];
 
-max_x = -1000;
-min_x = 0;
-max_x_angle = 0;
-min_x_angle = 0;
 
-
-SAMPLES = 10;
-FULLCIRCLE = linspace(0,360,300);
+FULLCIRCLE = linspace(0,360,200);
 velocity = zeros(length(FULLCIRCLE)-1,2);
-% FULLCIRCLE = 1;
 end_points = zeros(length(FULLCIRCLE),2);
 zero = zeros(2,1);
 
-
-ANGLE = 45;
 
 
 for i = 1:length(FULLCIRCLE)
@@ -92,7 +83,6 @@ for i = 1:length(FULLCIRCLE)
         angle = [theta02 theta23 theta36 theta25 theta67 theta78];
         angular_velocity = (angle - previous_angle)/DT;
 
-
         v0 = [1; 0];
         v1 = v0;
         v4 = v0;
@@ -129,7 +119,7 @@ for i = 1:length(FULLCIRCLE)
     line2points(seven, five, 'r', '7');
     line2points(eight, seven, 'r', '8');
     line2points(eight, five, 'r', '8');
-    scatter(end_points(:,1), end_points(:,2));
+    scatter(end_points(1:i,1), end_points(1:i,2));
     title('Frame and End Effector Position');
     ylabel('Y');
     xlabel('X');
@@ -139,7 +129,7 @@ for i = 1:length(FULLCIRCLE)
     end
     
     subplot(1,2,2)
-    scatter(velocity(:,1), velocity(:,2));
+    scatter(velocity(1:i-1,1), velocity(1:i-1,2));
     title('End Effector Velocity');
     ylabel('Y Velocity');
     xlabel('X Velocity');

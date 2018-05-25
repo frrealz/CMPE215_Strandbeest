@@ -141,11 +141,8 @@ for i = 2:length(FULLCIRCLE)
     velocity(i-1,:) = v8;
 end
 
-mag_velocity = zeros(length(velocity),1);
-for i = 1:length(velocity)
-    mag_velocity(i) = sqrt(velocity(i,1)^2 + velocity(i,2)^2);
-end
 
+mag_velocity = vecnorm(velocity);
 
 
 subplot(2,1,1);
