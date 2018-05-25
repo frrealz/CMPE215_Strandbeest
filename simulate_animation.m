@@ -20,8 +20,9 @@ m = 15.0;
 lengths = [a b c d e f g h i j k l m];
 
 
-FULLCIRCLE = linspace(0,360,200);
+FULLCIRCLE = linspace(180,540,60);
 velocity = zeros(length(FULLCIRCLE)-1,2);
+center_Of_Mass = zeros(length(FULLCIRCLE), 2);
 end_points = zeros(length(FULLCIRCLE),2);
 zero = zeros(2,1);
 
@@ -105,7 +106,15 @@ for i = 1:length(FULLCIRCLE)
     figure(1);
     subplot(1,2,1);
     hold on;
+    title('Frame and End Effector Position');
+    ylabel('Y');
+    xlabel('X');
     axis([-100 50 -100 50]);
+    scatter(end_points(1:i,1), end_points(1:i,2), 'DisplayName', 'End Effector Path');
+    center_Of_Mass(i,:) = find_center_of_mass(zero, one, two, three, four, five, six, seven, eight);
+    scatter(center_Of_Mass(1:i,1), center_Of_Mass(1:i,2), 'DisplayName', 'Center of Mass', 'MarkerEdgeColor', 'g');
+    legend('Location','Best');
+    
     line2points(one, zero, 'b', '1');
     line2points(four, one, 'b', '4');
     line2points(zero, two, 'r', '0');
@@ -119,17 +128,14 @@ for i = 1:length(FULLCIRCLE)
     line2points(seven, five, 'r', '7');
     line2points(eight, seven, 'r', '8');
     line2points(eight, five, 'r', '8');
-    scatter(end_points(1:i,1), end_points(1:i,2));
-    title('Frame and End Effector Position');
-    ylabel('Y');
-    xlabel('X');
     pause(0.001);
     if(i ~= length(FULLCIRCLE))
         clf;
     end
     
     subplot(1,2,2)
-    scatter(velocity(1:i-1,1), velocity(1:i-1,2));
+    c = linspace(1,5,length(velocity(1:i-1,1)));
+    scatter(velocity(1:i-1,1), velocity(1:i-1,2), [], c);
     title('End Effector Velocity');
     ylabel('Y Velocity');
     xlabel('X Velocity');
