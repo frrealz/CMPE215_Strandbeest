@@ -110,6 +110,7 @@ for i = 1:length(FULLCIRCLE)
     ylabel('Y');
     xlabel('X');
     axis([-100 50 -100 50]);
+    axis equal;
     scatter(end_points(1:i,1), end_points(1:i,2), 'DisplayName', 'End Effector Path');
     center_Of_Mass(i,:) = find_center_of_mass(zero, one, two, three, four, five, six, seven, eight);
     scatter(center_Of_Mass(1:i,1), center_Of_Mass(1:i,2), 'DisplayName', 'Center of Mass', 'MarkerEdgeColor', 'g');
