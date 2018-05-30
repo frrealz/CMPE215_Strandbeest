@@ -150,11 +150,11 @@ end
 
 mag_accel = zeros(length(accel_points), 1);
 for i = 1:length(accel_points)
-    mag_accel(i) = vecnorm(accel_points(i));
+    mag_accel(i) = sqrt(accel_points(i,1)^2+accel_points(i,2)^2);
 end
 
 subplot(1,2,2)
-plot(mag_accel);
+plot(mag_accel(3:end));
 title('End Effector Acceleration');
 ylabel('Acceleration');
 xlabel('Time');
