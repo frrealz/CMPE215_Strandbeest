@@ -20,8 +20,9 @@ m = 15.0;
 lengths = [a b c d e f g h i j k l m];
 
 
-FULLCIRCLE = linspace(180,540,60);
+FULLCIRCLE = linspace(0,360, 200);
 velocity = zeros(length(FULLCIRCLE)-1,2);
+accel_points = zeros(length(FULLCIRCLE)-2,2);
 center_Of_Mass = zeros(length(FULLCIRCLE), 2);
 end_points = zeros(length(FULLCIRCLE),2);
 zero = zeros(2,1);
@@ -77,7 +78,7 @@ for i = 1:length(FULLCIRCLE)
         %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
         angle = [theta02 theta23 theta36 theta25 theta67 theta78];
         %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-    else
+    elseif(i == 2)
         DT = 5;
 
         previous_angle = angle;
@@ -96,26 +97,56 @@ for i = 1:length(FULLCIRCLE)
         v8 = find_velocity_vector(v7, angular_velocity(6), L_H);        %VERY not sure
 
         velocity(i-1,:) = v8;
+    else
+        % finds angular velocity and angular acceleration
+        previous_angle = angle;
+        angle = [theta02 theta23 theta36 theta25 theta67 theta78];
+        
+        previous_angular_velocity = angular_velocity;
+        angular_velocity = (angle - previous_angle)/DT;
+
+
+        v0 = [1; 0];
+        v1 = v0;
+        v4 = v0;
+        %should be correct now
+        v2 = find_velocity_vector(v0, angular_velocity(1), L_M);        %not sure
+        v3 = find_velocity_vector(v2, angular_velocity(2), L_J);        %not sure
+        v5 = find_velocity_vector(v2, angular_velocity(4), L_K);        %not sure
+        v6 = find_velocity_vector(v3, angular_velocity(3), L_E);        %VERY not sure
+        v7 = find_velocity_vector(v6, angular_velocity(5), L_F);        %VERY not sure
+        v8 = find_velocity_vector(v7, angular_velocity(6), L_H);        %VERY not sure
+        velocity(i-1,:) = v8;
+        
+        
+        angular_accel = (angular_velocity - previous_angular_velocity)/DT;
+        a0 = [0; 0];
+        a1 = a0;
+        a4 = a0;
+        a2 = find_accel_vector(a0, angular_velocity(1), angular_accel(1), theta02, lengths(13));
+        a3 = find_accel_vector(a2, angular_velocity(2), angular_accel(2), theta23, lengths(10));
+        a5 = find_accel_vector(a2, angular_velocity(4), angular_accel(4), theta25, lengths(11));
+        a6 = find_accel_vector(a3, angular_velocity(3), angular_accel(3), theta36, lengths(5));
+        a7 = find_accel_vector(a6, angular_velocity(5), angular_accel(5), theta67, lengths(6));
+        a8 = find_accel_vector(a7, angular_velocity(6), angular_accel(6), theta78, lengths(8));
+        accel_points(i,:) = a8;
     end
     
     
     
-    
-    
-    
     figure(1);
-    subplot(1,2,1);
+    subplot(1,3,1);
     hold on;
     title('Frame and End Effector Position');
     ylabel('Y');
     xlabel('X');
     axis([-100 50 -100 50]);
     axis equal;
-    scatter(end_points(1:i,1), end_points(1:i,2), 'DisplayName', 'End Effector Path');
+    plot(end_points(1:i,1), end_points(1:i,2), 'c-o', 'DisplayName', 'End Effector Path');
     center_Of_Mass(i,:) = find_center_of_mass(zero, one, two, three, four, five, six, seven, eight);
-    scatter(center_Of_Mass(1:i,1), center_Of_Mass(1:i,2), 'DisplayName', 'Center of Mass', 'MarkerEdgeColor', 'g');
+    plot(center_Of_Mass(1:i,1), center_Of_Mass(1:i,2), 'g-o', 'DisplayName', 'Center of Mass');
     legend('Location','Best');
-    
+
     line2points(one, zero, 'b', '1');
     line2points(four, one, 'b', '4');
     line2points(zero, two, 'r', '0');
@@ -133,14 +164,19 @@ for i = 1:length(FULLCIRCLE)
     if(i ~= length(FULLCIRCLE))
         clf;
     end
-    
-    subplot(1,2,2)
-    c = linspace(1,5,length(velocity(1:i-1,1)));
-    scatter(velocity(1:i-1,1), velocity(1:i-1,2));
-%     scatter(velocity(1:i-1,1), velocity(1:i-1,2), [], c);
+
+
+    subplot(1,3,2)
+    plot(velocity(1:i-1,1), velocity(1:i-1,2), 'm-o');
     title('End Effector Velocity');
     ylabel('Y Velocity');
     xlabel('X Velocity');
+
+    subplot(1,3,3)
+    plot(accel_points(3:i-2,1), accel_points(3:i-2,2), 'r-o');
+    title('End Effector Accel');
+    ylabel('Y Accel');
+    xlabel('X Accel');
 end
 
 

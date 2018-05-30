@@ -12,7 +12,7 @@ rD = vecnorm(six-four);
 rG = vecnorm(seven-five);
 rI = vecnorm(eight-five);
 rF = vecnorm(seven-six);
-rH = veccnorm(eight-seven);
+rH = vecnorm(eight-seven);
 
 aMass = component_mass(one, four);
 bMass = component_mass(three, four);
@@ -29,6 +29,7 @@ lMass = component_mass(zero, one);
 mMass = component_mass(zero, two);
 
 rsum = rA+rB+rC+rD+rE+rF+rG+rH+rI+rJ+rK+rL+rM;
+
 
 centerMass = zeros(2,1);
 centerMass(1) = (rA*aMass(1) + rB*bMass(1) + rC*cMass(1) + rD*dMass(1) + rE*eMass(1) + rF*fMass(1) + rG*gMass(1) + rH*hMass(1) + rI*iMass(1) + rJ*jMass(1) + rK*kMass(1) + rL*lMass(1) + rM*mMass(1))/rsum;

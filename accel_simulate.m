@@ -77,9 +77,7 @@ for i = 1:length(FULLCIRCLE)
         angle = [theta02 theta23 theta36 theta25 theta67 theta78];
         %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
     elseif (i == 2)
-        %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-        %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-        %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+        %finds ONLY angular velocity
         DT = 5;
 
         previous_angle = angle;
@@ -97,11 +95,12 @@ for i = 1:length(FULLCIRCLE)
         v6 = find_velocity_vector(v3, angular_velocity(3), L_E);        %VERY not sure
         v7 = find_velocity_vector(v6, angular_velocity(5), L_F);        %VERY not sure
         v8 = find_velocity_vector(v7, angular_velocity(6), L_H);        %VERY not sure
-
         velocity(i-1,:) = v8;
-    else  
+    else
+        % finds angular velocity and angular acceleration
         previous_angle = angle;
         angle = [theta02 theta23 theta36 theta25 theta67 theta78];
+        
         previous_angular_velocity = angular_velocity;
         angular_velocity = (angle - previous_angle)/DT;
 
@@ -116,7 +115,6 @@ for i = 1:length(FULLCIRCLE)
         v6 = find_velocity_vector(v3, angular_velocity(3), L_E);        %VERY not sure
         v7 = find_velocity_vector(v6, angular_velocity(5), L_F);        %VERY not sure
         v8 = find_velocity_vector(v7, angular_velocity(6), L_H);        %VERY not sure
-
         velocity(i-1,:) = v8;
         
         
@@ -138,19 +136,28 @@ for i = 1:length(FULLCIRCLE)
         figure(1);
         subplot(1,2,1);
         hold on;
-        scatter(accel_points(1:i,1), accel_points(1:i,2));
         title('End Effector Accel');
         ylabel('Y Accel');
         xlabel('X Accel');
+        axis equal;
+        plot(accel_points(2:i-2,1), accel_points(2:i-2,2), 'b-o');
+        pause(0.01);
         
         
         
-        subplot(1,2,2)
-        scatter(velocity(1:i-1,1), velocity(1:i-1,2));
-        pause(0.1);
     end
 end
 
+mag_accel = zeros(length(accel_points), 1);
+for i = 1:length(accel_points)
+    mag_accel(i) = vecnorm(accel_points(i));
+end
+
+subplot(1,2,2)
+plot(mag_accel);
+title('End Effector Acceleration');
+ylabel('Acceleration');
+xlabel('Time');
 
 
-
+print -depsc end_effector_acceleration.eps

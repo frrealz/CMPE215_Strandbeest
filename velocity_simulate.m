@@ -101,9 +101,10 @@ for i = 1:length(FULLCIRCLE)
     end
 end
 
-
-mag_velocity = vecnorm(velocity);
-
+mag_velocity = zeros(length(velocity), 1);
+for i = 1:length(velocity)
+    mag_velocity(i) = vecnorm(velocity(i));
+end
 
 subplot(2,1,1);
 scatter(velocity(:,1), velocity(:,2));
