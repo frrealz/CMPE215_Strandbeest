@@ -24,6 +24,7 @@ lengths = [a b c d e f g h i j  k  l  m];
 FULLCIRCLE = linspace(0,720,100);
 velocity = zeros(length(FULLCIRCLE)-1,2);
 end_points = zeros(length(FULLCIRCLE),2);
+accel_points = zeros(length(FULLCIRCLE)-2,2);
 zero = zeros(2,1);
 ANGLE = 45;
 
@@ -71,19 +72,29 @@ for i = 1:length(FULLCIRCLE)
     L_H = create_vector(lengths(8), theta78);
     eight = seven + L_H;
     
+    
+    
+    const = three - five;
+    theta54 = vector_solve(lengths(3), -lengths(2), const);
+    theta54 = theta54(1);
+    L_C = create_vector(lengths(3), theta54);
+    four = five + L_C;
+    
     if(i == 1)
         %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
         angle = [theta02 theta23 theta36 theta25 theta67 theta78];
+        angle_test = theta54;
         %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
     else
-        %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-        %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-        %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+        %finds ONLY angular velocity
         DT = 5;
-
         previous_angle = angle;
         angle = [theta02 theta23 theta36 theta25 theta67 theta78];
         angular_velocity = (angle - previous_angle)/DT;
+        
+        test_angle_previous = angle_test;
+        angle_test = theta54;
+        test_angular_velocity = (angle_test - test_angle_previous)/DT;
 
 
         v0 = [1; 0];
@@ -96,44 +107,60 @@ for i = 1:length(FULLCIRCLE)
         v6 = find_velocity_vector(v3, angular_velocity(3), L_E);        %VERY not sure
         v7 = find_velocity_vector(v6, angular_velocity(5), L_F);        %VERY not sure
         v8 = find_velocity_vector(v7, angular_velocity(6), L_H);        %VERY not sure
-
         velocity(i-1,:) = v8;
+        
+        v4_test = find_velocity_vector(v5, test_angular_velocity, L_C);
+        
+        v4-v4_test
+        
     end
+%     else
+%         % finds angular velocity and angular acceleration
+%         previous_angle = angle;
+%         angle = [theta02 theta23 theta36 theta25 theta67 theta78];
+%         
+%         previous_angular_velocity = angular_velocity;
+%         angular_velocity = (angle - previous_angle)/DT;
+% 
+% 
+%         v0 = [1; 0];
+%         v1 = v0;
+%         v4 = v0;
+%         %should be correct now
+%         v2 = find_velocity_vector(v0, angular_velocity(1), L_M);        %not sure
+%         v3 = find_velocity_vector(v2, angular_velocity(2), L_J);        %not sure
+%         v5 = find_velocity_vector(v2, angular_velocity(4), L_K);        %not sure
+%         v6 = find_velocity_vector(v3, angular_velocity(3), L_E);        %VERY not sure
+%         v7 = find_velocity_vector(v6, angular_velocity(5), L_F);        %VERY not sure
+%         v8 = find_velocity_vector(v7, angular_velocity(6), L_H);        %VERY not sure
+%         velocity(i-1,:) = v8;
+%         
+% 
+%         
+%         
+%         angular_accel = (angular_velocity - previous_angular_velocity)/DT;
+%         a0 = [0; 0];
+%         a1 = a0;
+%         a4 = a0;
+%         a2 = find_accel_vector(a0, angular_velocity(1), angular_accel(1), theta02, lengths(13));
+%         a3 = find_accel_vector(a2, angular_velocity(2), angular_accel(2), theta23, lengths(10));
+%         a5 = find_accel_vector(a2, angular_velocity(4), angular_accel(4), theta25, lengths(11));
+%         a6 = find_accel_vector(a3, angular_velocity(3), angular_accel(3), theta36, lengths(5));
+%         a7 = find_accel_vector(a6, angular_velocity(5), angular_accel(5), theta67, lengths(6));
+%         a8 = find_accel_vector(a7, angular_velocity(6), angular_accel(6), theta78, lengths(8));
+%         accel_points(i,:) = a8; 
+%         
+%         figure(1);
+%         subplot(1,2,1);
+%         hold on;
+%         title('End Effector Accel');
+%         ylabel('Y Accel');
+%         xlabel('X Accel');
+%         axis equal;
+%         plot(accel_points(2:i-2,1), accel_points(2:i-2,2), 'b-o');
+%         pause(0.01);
+%     end
 end
-
-mag_velocity = vecnorm(velocity);
-
-subplot(2,1,1);
-scatter(velocity(:,1), velocity(:,2));
-title('End Effector Velocity');
-ylabel('Y Velocity');
-xlabel('X Velocity');
-
-subplot(2,1,2);
-plot(mag_velocity);
-title('End Effector Speed');
-ylabel('Speed');
-xlabel('Time');
-print -depsc end_effector_velocity.eps
-
-
-% hold on
-% figure(1)
-% axis([-100 50 -100 50]);
-% line2points(one, zero, 'b', '1');
-% line2points(four, one, 'b', '4');
-% line2points(zero, two, 'r', '0');
-% line2points(two, three, 'r', '2');
-% line2points(three, four, 'r', '3');
-% line2points(six, four, 'r', '6');
-% line2points(three, six, 'r', '3');
-% line2points(five, two, 'r', '5');
-% line2points(five, four, 'r', '5');
-% line2points(seven, six, 'r', '7');
-% line2points(seven, five, 'r', '7');
-% line2points(eight, seven, 'r', '8');
-% line2points(eight, five, 'r', '8');
-
 
 
 

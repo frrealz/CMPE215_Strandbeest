@@ -143,8 +143,9 @@ for i = 1:length(FULLCIRCLE)
     axis([-100 50 -100 50]);
     axis equal;
     plot(end_points(1:i,1), end_points(1:i,2), 'c-o', 'DisplayName', 'End Effector Path');
-    center_Of_Mass(i,:) = find_center_of_mass(zero, one, two, three, four, five, six, seven, eight);
-    plot(center_Of_Mass(1:i,1), center_Of_Mass(1:i,2), 'g-o', 'DisplayName', 'Center of Mass');
+    temp = find_center_of_mass(zero, one, two, three, four, five, six, seven, eight);
+    center_Of_Mass(i,:) = temp;
+    plot(center_Of_Mass(2:i,1), center_Of_Mass(2:i,2), 'g-o', 'DisplayName', 'Center of Mass');
     legend('Location','Best');
 
     line2points(one, zero, 'b', '1');

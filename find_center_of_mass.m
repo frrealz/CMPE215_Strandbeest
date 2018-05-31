@@ -1,18 +1,18 @@
 function[centerMass] = find_center_of_mass(zero, one, two, three, four, five, six, seven, eight)
 
-rL = vecnorm(one-zero);
-rM = vecnorm(two-zero);
-rA = vecnorm(four-one);
-rJ = vecnorm(three-two);
-rK = vecnorm(five-two);
-rB = vecnorm(four-three);
-rE = vecnorm(six-three);
-rC = vecnorm(five-four);
-rD = vecnorm(six-four);
-rG = vecnorm(seven-five);
-rI = vecnorm(eight-five);
-rF = vecnorm(seven-six);
-rH = vecnorm(eight-seven);
+rL = vecnorm(one-zero)';
+rM = vecnorm(two-zero)';
+rA = vecnorm(four-one)';
+rJ = vecnorm(three-two)';
+rK = vecnorm(five-two)';
+rB = vecnorm(four-three)';
+rE = vecnorm(six-three)';
+rC = vecnorm(five-four)';
+rD = vecnorm(six-four)';
+rG = vecnorm(seven-five)';
+rI = vecnorm(eight-five)';
+rF = vecnorm(seven-six)';
+rH = vecnorm(eight-seven)';
 
 aMass = component_mass(one, four);
 bMass = component_mass(three, four);
