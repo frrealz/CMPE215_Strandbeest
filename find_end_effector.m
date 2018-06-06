@@ -70,6 +70,8 @@ for i = 1:length(FULLCIRCLE)
 
     end_points(i,:) = eight;
     
+
+        
     if(eight(1) > max_x)
         max_x_angle = theta02;
         max_x = eight(1);
@@ -97,7 +99,9 @@ line2points(seven, five, 'r', '7');
 line2points(eight, seven, 'r', '8');
 line2points(eight, five, 'r', '8');
 
+% axis([-80 0 -120 -40]);
 scatter(end_points(:,1), end_points(:,2));
+
 
 reference_min = min(end_points(:,2));
 counter = 0;

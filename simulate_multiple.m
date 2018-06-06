@@ -16,12 +16,12 @@ l = 7.8;
 m = 15.0;
 lengths = [a b c d e f g h i j k l m];
 
-TIMES = 10;
-SCALAR = 5;
-SAMPLES = 100;
+TIMES = 20;
+SCALAR = 10;
+SAMPLES = 360;
 
 for i=1:TIMES
-    [lengths, ratio, step_size] = simulate(SCALAR, round(SAMPLES*(5-SCALAR+1)), lengths);
+    [lengths, ratio, step_size] = simulate(SCALAR, SAMPLES, lengths);
     step_size
     SCALAR = SCALAR - SCALAR/TIMES;
 end

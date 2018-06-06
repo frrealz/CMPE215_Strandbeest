@@ -1,16 +1,16 @@
 function [best_length, best_ratio, step_size] = simulate(SCALAR, SAMPLES, lengths)
 
-FULLCIRCLE = linspace(0,360,200);
+FULLCIRCLE = linspace(0,360,SAMPLES);
 end_points = zeros(length(FULLCIRCLE),2);
 
 
 best_length = lengths;
 best_ratio = 0;
-DELTA = 20;
+DELTA = 10;
 step_size = DELTA;
 EPSILON = 1;
 
-for j = 1:SAMPLES
+for j = 1:20
     lengths = best_length + rand*SCALAR - SCALAR/2;
     for i = 1:length(FULLCIRCLE)
         theta02 = FULLCIRCLE(i)*pi/180;
