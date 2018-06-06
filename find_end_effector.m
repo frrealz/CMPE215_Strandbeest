@@ -117,3 +117,4 @@ min_x_angle*180/pi
 
 print -depsc leg_sim_position.eps
 
+step_height = max(end_points(:,2)) - reference_min

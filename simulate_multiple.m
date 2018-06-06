@@ -16,14 +16,24 @@ l = 7.8;
 m = 15.0;
 lengths = [a b c d e f g h i j k l m];
 
-TIMES = 20;
-SCALAR = 10;
-SAMPLES = 360;
+TIMES = 100;
+SCALAR = 0.3;
+SAMPLES = 1080;
+constant = SCALAR/TIMES
+
+SCALAR = 0;
+
+ratio = 0;
+ratio_array = zeros(TIMES+1,1);
+ratio_array(1) = 0.4320;
+step_size_array = zeros(TIMES,1);
 
 for i=1:TIMES
-    [lengths, ratio, step_size] = simulate(SCALAR, SAMPLES, lengths);
+    [lengths, ratio, step_size] = simulate(SCALAR, SAMPLES, lengths, ratio);
+    SCALAR = SCALAR + constant;
+    ratio_array(i+1) = ratio;
+    step_size_array(i) = step_size;
     step_size
-    SCALAR = SCALAR - SCALAR/TIMES;
 end
 
 
@@ -90,6 +100,15 @@ if(DRAW)
 
     scatter(end_points(:,1), end_points(:,2));
 end
+
+figure(2)
+plot(ratio_array)
+title('Ratio of time on ground per simulation')
+xlabel('Simulation Number');
+ylabel('Ratio');
+% figure(3)
+% plot(step_size_array)
+
 
 lengths
 ratio
