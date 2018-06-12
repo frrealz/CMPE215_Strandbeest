@@ -27,7 +27,7 @@ end_points = zeros(length(FULLCIRCLE),2);
 zero = zeros(2,1);
 
 v = VideoWriter('Sim_vid');
-v.FrameRate = 15;
+v.FrameRate = 10;
 open(v);
 
 for i = 1:length(FULLCIRCLE)

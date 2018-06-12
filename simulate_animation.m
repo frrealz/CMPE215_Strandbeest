@@ -1,8 +1,8 @@
 clear all
 close all
 
-
-% M rotates about the origin
+NEW = 1;
+% % M rotates about the origin
 a = 38.0;
 b = 41.5;
 c = 39.3;
@@ -16,11 +16,26 @@ j = 50.0;
 k = 61.9;
 l = 7.8;
 m = 15.0;
+if(NEW)
+    a = 39.295;
+    b = 42.795;
+    c = 40.593;
+    d = 41.395;
+    e = 57.095;
+    f = 40.695;
+    g = 37.995;
+    h = 66.995;
+    i = 50.295;
+    j = 51.295;
+    k = 63.195;
+    l = 9.095;
+    m = 16.295;
+end
 
 lengths = [a b c d e f g h i j k l m];
 
 
-FULLCIRCLE = linspace(0,360, 200);
+FULLCIRCLE = linspace(0,360,200);
 velocity = zeros(length(FULLCIRCLE)-1,2);
 accel_points = zeros(length(FULLCIRCLE)-2,2);
 center_Of_Mass = zeros(length(FULLCIRCLE), 2);
