@@ -27,7 +27,14 @@ end_points = zeros(length(FULLCIRCLE),2);
 zero = zeros(2,1);
 ANGLE = 45;
 
-
+velocity0 = zeros(length(FULLCIRCLE)-1,2);
+velocity1 = zeros(length(FULLCIRCLE)-1,2);
+velocity2 = zeros(length(FULLCIRCLE)-1,2);
+velocity3 = zeros(length(FULLCIRCLE)-1,2);
+velocity4 = zeros(length(FULLCIRCLE)-1,2);
+velocity5 = zeros(length(FULLCIRCLE)-1,2);
+velocity6 = zeros(length(FULLCIRCLE)-1,2);
+velocity7 = zeros(length(FULLCIRCLE)-1,2);
 
 
 
@@ -98,23 +105,47 @@ for i = 1:length(FULLCIRCLE)
         v8 = find_velocity_vector(v7, angular_velocity(6), L_H);        %VERY not sure
 
         velocity(i-1,:) = v8;
+        velocity0(i-1,:) = v0;
+        velocity1(i-1,:) = v1;
+        velocity2(i-1,:) = v2;
+        velocity3(i-1,:) = v3;
+        velocity4(i-1,:) = v4;
+        velocity5(i-1,:) = v5;
+        velocity6(i-1,:) = v6;
+        velocity7(i-1,:) = v7;
     end
 end
 
-mag_velocity = vecnorm(velocity);
 
-subplot(2,1,1);
+
+subplot(2,3,1);
 scatter(velocity(:,1), velocity(:,2));
-title('End Effector Velocity');
-ylabel('Y Velocity');
-xlabel('X Velocity');
+subplot(2,3,2);
+scatter(velocity2(:,1), velocity2(:,2));
+subplot(2,3,3);
+scatter(velocity3(:,1), velocity3(:,2));
+subplot(2,3,4);
+scatter(velocity5(:,1), velocity5(:,2));
+subplot(2,3,5);
+scatter(velocity6(:,1), velocity6(:,2));
+subplot(2,3,6);
+scatter(velocity7(:,1), velocity7(:,2));
 
-subplot(2,1,2);
-plot(mag_velocity);
-title('End Effector Speed');
-ylabel('Speed');
-xlabel('Time');
-print -depsc end_effector_velocity.eps
+
+% mag_velocity = vecnorm(velocity);
+% 
+% subplot(2,1,1);
+% scatter(velocity(:,1), velocity(:,2));
+% title('End Effector Velocity');
+% ylabel('Y Velocity');
+% xlabel('X Velocity');
+% 
+% subplot(2,1,2);
+% plot(mag_velocity);
+% title('End Effector Speed');
+% ylabel('Speed');
+% xlabel('Time');
+% print -depsc end_effector_velocity.eps
 
 
 % hold on

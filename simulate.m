@@ -10,7 +10,7 @@ DELTA = 15;
 step_size = DELTA;
 EPSILON = 1;
 
-for j = 1:15
+for j = 1:1
     lengths = best_length + rand*SCALAR - SCALAR/2;
     for i = 1:length(FULLCIRCLE)
         theta02 = FULLCIRCLE(i)*pi/180;
@@ -61,9 +61,10 @@ for j = 1:15
     %finds the step height
     step_height = max(end_points(:,2)) - reference_min;
     
-
+%     best_length = lengths;
     %sets step height and ground ratio
-    if((ratio > best_ratio) && (DELTA < (step_height)))
+    if(ratio > best_ratio)
+%     if((ratio > best_ratio) && (DELTA < (step_height)))
        best_ratio = ratio;
        best_length = lengths;
        step_size = step_height;

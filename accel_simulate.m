@@ -21,10 +21,18 @@ lengths = [a b c d e f g h i j  k  l  m];
 %%%%%%%%%% 1 2 3 4 5 6 7 8 9 10 11 12 13
 
 
-FULLCIRCLE = linspace(0,720,100);
+FULLCIRCLE = linspace(0,1080,300);
 velocity = zeros(length(FULLCIRCLE)-1,2);
 end_points = zeros(length(FULLCIRCLE),2);
 accel_points = zeros(length(FULLCIRCLE)-2,2);
+accel_points1 = zeros(length(FULLCIRCLE)-2,2);
+accel_points2 = zeros(length(FULLCIRCLE)-2,2);
+accel_points3 = zeros(length(FULLCIRCLE)-2,2);
+accel_points4 = zeros(length(FULLCIRCLE)-2,2);
+accel_points5 = zeros(length(FULLCIRCLE)-2,2);
+accel_points6 = zeros(length(FULLCIRCLE)-2,2);
+accel_points7 = zeros(length(FULLCIRCLE)-2,2);
+accel_points0 = zeros(length(FULLCIRCLE)-2,2);
 zero = zeros(2,1);
 ANGLE = 45;
 
@@ -129,30 +137,63 @@ for i = 1:length(FULLCIRCLE)
         a7 = find_accel_vector(a6, angular_velocity(5), angular_accel(5), theta67, lengths(6));
         a8 = find_accel_vector(a7, angular_velocity(6), angular_accel(6), theta78, lengths(8));
         accel_points(i,:) = a8;
+        accel_points1(i,:) = a1;
+        accel_points2(i,:) = a2;
+        accel_points3(i,:) = a3;
+        accel_points4(i,:) = a4;
+        accel_points5(i,:) = a5;
+        accel_points6(i,:) = a6;
+        accel_points7(i,:) = a7;
+        accel_points0(i,:) = a0;
         
         
-        
-        
+%         figure(1);
+%         subplot(1,2,1);
+%         hold on;
+%         title('End Effector Accel');
+%         ylabel('Y Accel');
+%         xlabel('X Accel');
+%         axis equal;
+%         plot(accel_points(2:i-2,1), accel_points(2:i-2,2), 'b-o');
+%         pause(0.01);
         figure(1);
-        subplot(1,2,1);
-        hold on;
+        subplot(2,3,1);
         title('End Effector Accel');
-        ylabel('Y Accel');
-        xlabel('X Accel');
-        axis equal;
         plot(accel_points(2:i-2,1), accel_points(2:i-2,2), 'b-o');
-        pause(0.01);
         
+        subplot(2,3,2);
+        title('Joint 0');
+        plot(accel_points2(2:i-2,1), accel_points2(2:i-2,2), 'b-o');
+        
+        subplot(2,3,3);
+        title('Joint 1');
+        plot(accel_points3(2:i-2,1), accel_points3(2:i-2,2), 'b-o');
+        
+        subplot(2,3,4);
+        title('Joint 2');
+        plot(accel_points5(2:i-2,1), accel_points5(2:i-2,2), 'b-o');
+        
+        subplot(2,3,5);
+        title('Joint 2');
+        plot(accel_points6(2:i-2,1), accel_points6(2:i-2,2), 'b-o');
+        
+        subplot(2,3,6);
+        title('Joint 2');
+        plot(accel_points7(2:i-2,1), accel_points7(2:i-2,2), 'b-o');
+        
+        
+        
+        pause(0.01);        
     end
 end
 
-mag_accel = vecnorm(accel_points);
-
-subplot(1,2,2)
-plot(mag_accel(3:end));
-title('End Effector Acceleration');
-ylabel('Acceleration');
-xlabel('Time');
-
-
-print -depsc end_effector_acceleration.eps
+% mag_accel = vecnorm(accel_points);
+% 
+% subplot(1,2,2)
+% plot(mag_accel(3:end));
+% title('End Effector Acceleration');
+% ylabel('Acceleration');
+% xlabel('Time');
+% 
+% 
+% print -depsc end_effector_acceleration.eps

@@ -16,7 +16,7 @@ l = 7.8;
 m = 15.0;
 lengths = [a b c d e f g h i j k l m];
 
-TIMES = 100;
+TIMES = 500;
 SCALAR = 0.3;
 SAMPLES = 1080;
 constant = SCALAR/TIMES
